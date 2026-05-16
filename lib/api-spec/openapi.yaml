@@ -3,13 +3,23 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: NJ Upholstery API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: services
+    description: Upholstery services
+  - name: gallery
+    description: Portfolio gallery
+  - name: reviews
+    description: Customer reviews and ratings
+  - name: search
+    description: Smart search
+  - name: quotes
+    description: Quote requests
 paths:
   /healthz:
     get:
@@ -24,6 +34,170 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /services:
+    get:
+      operationId: listServices
+      tags: [services]
+      summary: List all upholstery services
+      responses:
+        "200":
+          description: List of services
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Service"
+
+  /services/{id}:
+    get:
+      operationId: getService
+      tags: [services]
+      summary: Get a single service
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Service details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Service"
+        "404":
+          description: Not found
+
+  /gallery:
+    get:
+      operationId: listGallery
+      tags: [gallery]
+      summary: List portfolio gallery items
+      parameters:
+        - name: serviceId
+          in: query
+          required: false
+          schema:
+            type: ["integer", "null"]
+      responses:
+        "200":
+          description: Gallery items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GalleryItem"
+
+  /gallery/{id}:
+    get:
+      operationId: getGalleryItem
+      tags: [gallery]
+      summary: Get a single gallery item
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Gallery item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GalleryItem"
+        "404":
+          description: Not found
+
+  /reviews:
+    get:
+      operationId: listReviews
+      tags: [reviews]
+      summary: List customer reviews
+      responses:
+        "200":
+          description: Reviews list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewsResponse"
+    post:
+      operationId: createReview
+      tags: [reviews]
+      summary: Submit a customer review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewInput"
+      responses:
+        "201":
+          description: Review created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+        "400":
+          description: Invalid input
+
+  /search:
+    get:
+      operationId: search
+      tags: [search]
+      summary: Smart search across services and gallery
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResults"
+
+  /quotes:
+    post:
+      operationId: createQuote
+      tags: [quotes]
+      summary: Submit a quote request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuoteInput"
+      responses:
+        "201":
+          description: Quote request submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Quote"
+        "400":
+          description: Invalid input
+
+  /stats:
+    get:
+      operationId: getStats
+      tags: [services]
+      summary: Get showcase statistics
+      responses:
+        "200":
+          description: Stats overview
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Stats"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +208,172 @@ components:
       required:
         - status
 
+    Service:
+      type: object
+      required: [id, name, description, category, startingPrice, imageUrl]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+          enum: [car_seats, couches, office_chairs, headboards]
+        startingPrice:
+          type: number
+        imageUrl:
+          type: string
+        features:
+          type: array
+          items:
+            type: string
+        turnaroundDays:
+          type: ["integer", "null"]
+
+    GalleryItem:
+      type: object
+      required: [id, title, imageUrl, serviceId, serviceName]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: ["string", "null"]
+        imageUrl:
+          type: string
+        beforeImageUrl:
+          type: ["string", "null"]
+        afterImageUrl:
+          type: ["string", "null"]
+        serviceId:
+          type: integer
+        serviceName:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+
+    Review:
+      type: object
+      required: [id, customerName, rating, comment, createdAt]
+      properties:
+        id:
+          type: integer
+        customerName:
+          type: string
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+        serviceId:
+          type: ["integer", "null"]
+        serviceName:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    ReviewInput:
+      type: object
+      required: [customerName, rating, comment]
+      properties:
+        customerName:
+          type: string
+          minLength: 1
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+          minLength: 5
+        serviceId:
+          type: ["integer", "null"]
+
+    ReviewsResponse:
+      type: object
+      required: [reviews, averageRating, totalCount]
+      properties:
+        reviews:
+          type: array
+          items:
+            $ref: "#/components/schemas/Review"
+        averageRating:
+          type: number
+        totalCount:
+          type: integer
+
+    SearchResults:
+      type: object
+      required: [services, gallery, query]
+      properties:
+        query:
+          type: string
+        services:
+          type: array
+          items:
+            $ref: "#/components/schemas/Service"
+        gallery:
+          type: array
+          items:
+            $ref: "#/components/schemas/GalleryItem"
+
+    QuoteInput:
+      type: object
+      required: [name, phone, serviceCategory, description]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        phone:
+          type: string
+          minLength: 7
+        email:
+          type: ["string", "null"]
+        serviceCategory:
+          type: string
+        description:
+          type: string
+          minLength: 10
+        preferredContact:
+          type: string
+          enum: [whatsapp, call, email]
+
+    Quote:
+      type: object
+      required: [id, name, phone, serviceCategory, description, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: ["string", "null"]
+        serviceCategory:
+          type: string
+        description:
+          type: string
+        preferredContact:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    Stats:
+      type: object
+      required: [projectsCompleted, yearsExperience, happyClients, averageRating]
+      properties:
+        projectsCompleted:
+          type: integer
+        yearsExperience:
+          type: integer
+        happyClients:
+          type: integer
+        averageRating:
+          type: number
