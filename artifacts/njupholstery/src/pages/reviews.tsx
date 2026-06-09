@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { staticReviews } from "@/lib/static-data";
 
 const reviewSchema = z.object({
   customerName: z.string().min(2, "Name is required"),
@@ -27,9 +28,11 @@ const reviewSchema = z.object({
 });
 
 export default function Reviews() {
-  const { data: reviewsData, isLoading, refetch } = useListReviews();
+  const { data: reviewsDataApi, isLoading, refetch } = useListReviews();
   const createReview = useCreateReview();
   const { toast } = useToast();
+
+  const reviewsData = reviewsDataApi ?? staticReviews;
   
   const form = useForm<z.infer<typeof reviewSchema>>({
     resolver: zodResolver(reviewSchema),
@@ -79,22 +82,20 @@ export default function Reviews() {
             <div className="flex items-end justify-between mb-8 pb-8 border-b border-border">
               <div>
                 <h2 className="font-serif text-3xl font-bold mb-2">Recent Reviews</h2>
-                <p className="text-muted-foreground">Showing {reviewsData?.reviews.length || 0} reviews</p>
+                <p className="text-muted-foreground">Showing {reviewsData.reviews.length} reviews</p>
               </div>
               
-              {reviewsData && (
-                <div className="text-right">
-                  <div className="flex justify-end gap-1 mb-1">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className={`h-5 w-5 ${i < Math.round(reviewsData.averageRating) ? 'fill-accent text-accent' : 'text-muted'}`} />
-                    ))}
-                  </div>
-                  <div className="text-sm font-bold">{reviewsData.averageRating} / 5.0 Average</div>
+              <div className="text-right">
+                <div className="flex justify-end gap-1 mb-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className={`h-5 w-5 ${i < Math.round(reviewsData.averageRating) ? 'fill-accent text-accent' : 'text-muted'}`} />
+                  ))}
                 </div>
-              )}
+                <div className="text-sm font-bold">{reviewsData.averageRating} / 5.0 Average</div>
+              </div>
             </div>
 
-            {isLoading ? (
+            {isLoading && !reviewsDataApi ? (
               Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="p-8 bg-muted/30">
                   <Skeleton className="h-4 w-24 mb-4" />
@@ -105,7 +106,7 @@ export default function Reviews() {
                   </div>
                 </div>
               ))
-            ) : reviewsData?.reviews.map((review) => (
+            ) : reviewsData.reviews.map((review) => (
               <div key={review.id} className="p-8 bg-card border border-border shadow-sm">
                 <div className="flex gap-1 mb-6">
                   {Array.from({ length: 5 }).map((_, i) => (
