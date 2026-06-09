@@ -1,12 +1,14 @@
 import { Layout } from "@/components/layout";
 import { PageHeader } from "@/components/page-header";
 import { useListServices } from "@workspace/api-client-react";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "wouter";
 import { PaymentBadges } from "@/components/payment-badges";
+import { staticServices } from "@/lib/static-data";
+import { imgUrl } from "@/lib/img-url";
 
 export default function Services() {
-  const { data: services, isLoading } = useListServices();
+  const { data: servicesData } = useListServices();
+  const services = servicesData ?? staticServices;
 
   return (
     <Layout>
@@ -18,23 +20,12 @@ export default function Services() {
       
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto space-y-20">
-          {isLoading ? (
-            Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="flex flex-col md:flex-row gap-8">
-                <Skeleton className="w-full md:w-1/2 aspect-[4/3] rounded-sm" />
-                <div className="w-full md:w-1/2 space-y-4 py-4">
-                  <Skeleton className="h-10 w-2/3" />
-                  <Skeleton className="h-6 w-1/3" />
-                  <Skeleton className="h-24 w-full" />
-                </div>
-              </div>
-            ))
-          ) : services?.map((service, index) => (
+          {services.map((service, index) => (
             <div key={service.id} id={service.id.toString()} className={`flex flex-col md:flex-row gap-8 lg:gap-16 items-center ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
               <div className="w-full md:w-1/2">
                 <div className="aspect-[4/3] overflow-hidden rounded-sm relative">
                   <img 
-                    src={service.imageUrl || "https://images.unsplash.com/photo-1618220179428-22790b46a0eb?q=80&w=800"} 
+                    src={imgUrl(service.imageUrl) || "https://images.unsplash.com/photo-1618220179428-22790b46a0eb?q=80&w=800"} 
                     alt={service.name} 
                     className="w-full h-full object-cover"
                   />
