@@ -1,19 +1,24 @@
 import { Layout } from "@/components/layout";
 import { PageHeader } from "@/components/page-header";
 import { useListGallery, useListServices } from "@workspace/api-client-react";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
+import { staticGallery, staticServices } from "@/lib/static-data";
+import { imgUrl } from "@/lib/img-url";
 
 export default function Gallery() {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeServiceId, setActiveServiceId] = useState<number | null>(null);
 
-  const { data: services } = useListServices();
-  const { data: gallery, isLoading } = useListGallery(activeServiceId ? { serviceId: activeServiceId } : undefined);
+  const { data: servicesData } = useListServices();
+  const { data: galleryData } = useListGallery(activeServiceId ? { serviceId: activeServiceId } : undefined);
+
+  const services = servicesData ?? staticServices;
+  const gallery = galleryData ?? (activeServiceId
+    ? staticGallery.filter(g => g.serviceId === activeServiceId)
+    : staticGallery);
 
   const categories = [
     { id: null, name: "All Work" },
-    ...(services?.map(s => ({ id: s.id, name: s.name })) || [])
+    ...services.map(s => ({ id: s.id, name: s.name })),
   ];
 
   return (
@@ -44,19 +49,17 @@ export default function Gallery() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {isLoading ? (
-            Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="aspect-square w-full" />)
-          ) : gallery?.map((item) => (
+          {gallery.map((item) => (
             <div key={item.id} className="group relative bg-background border border-border">
               {item.beforeImageUrl ? (
                 <div className="relative aspect-square overflow-hidden group">
                   <img 
-                    src={item.beforeImageUrl} 
+                    src={imgUrl(item.beforeImageUrl)} 
                     alt={`Before: ${item.title}`} 
                     className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-100 group-hover:opacity-0"
                   />
                   <img 
-                    src={item.imageUrl} 
+                    src={imgUrl(item.imageUrl)} 
                     alt={`After: ${item.title}`} 
                     className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100"
                   />
@@ -66,7 +69,7 @@ export default function Gallery() {
               ) : (
                 <div className="aspect-square overflow-hidden">
                   <img 
-                    src={item.imageUrl} 
+                    src={imgUrl(item.imageUrl)} 
                     alt={item.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -89,7 +92,7 @@ export default function Gallery() {
             </div>
           ))}
           
-          {gallery?.length === 0 && (
+          {gallery.length === 0 && (
             <div className="col-span-full py-20 text-center">
               <p className="text-muted-foreground text-lg">No gallery items found for this category.</p>
             </div>
