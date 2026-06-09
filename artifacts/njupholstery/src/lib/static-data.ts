@@ -1,0 +1,85 @@
+export const staticServices = [
+  {
+    id: 1,
+    name: "Car Seat Reupholstery",
+    description: "Transform your vehicle's interior with premium fabrics and leather. We restore and upgrade car seats to look and feel brand new, using durable materials that withstand daily use.",
+    category: "car_seats",
+    startingPrice: 850,
+    imageUrl: "/images/carseat-during-repair.jpg",
+    features: ["Premium leather & fabric options", "Color matching available", "OEM-quality stitching", "Seat foam replacement", "Full interior sets available"],
+    turnaroundDays: 5,
+  },
+  {
+    id: 2,
+    name: "Couch Recovery",
+    description: "Breathe new life into your sofa with our expert fabric and leather recovery service. We reshape, restuff, and recover couches of all shapes and sizes.",
+    category: "couches",
+    startingPrice: 1200,
+    imageUrl: "/images/sofa-cream-curved.jpg",
+    features: ["Fabric or leather options", "Foam and padding replacement", "Frame repair included", "Custom designs available", "Same fabric matching"],
+    turnaroundDays: 7,
+  },
+  {
+    id: 3,
+    name: "Office Chair Repair",
+    description: "Extend the life of your office chairs with professional repair and reupholstery. From executive leather chairs to task seating, we restore comfort and appearance.",
+    category: "office_chairs",
+    startingPrice: 450,
+    imageUrl: "/images/office-chair-black-leather.jpg",
+    features: ["Fabric or vinyl options", "Mechanism servicing", "Armrest refurbishment", "Foam padding replacement", "Bulk office orders welcome"],
+    turnaroundDays: 3,
+  },
+  {
+    id: 4,
+    name: "New Couches & Headboards",
+    description: "Commission a custom couch or headboard built to your exact specifications. We design and craft bespoke upholstered furniture tailored to your space, style, and budget.",
+    category: "headboards",
+    startingPrice: 3500,
+    imageUrl: "/images/bed-olive-green.jpg",
+    features: ["Fully custom designs", "Wide fabric and leather selection", "Any size or shape", "Frame built to last", "Free design consultation"],
+    turnaroundDays: 21,
+  },
+];
+
+export const staticGallery = [
+  { id: 11, title: "Car Seat Restoration — Before", description: "Worn and torn car seat brought in for full reupholstery.", imageUrl: "/images/carseat-worn-before.jpg", beforeImageUrl: "/images/carseat-worn-before.jpg", afterImageUrl: "/images/carseat-during-repair.jpg", serviceId: 1, serviceName: "Car Seat Reupholstery", tags: ["before & after", "car seats", "restoration"] },
+  { id: 12, title: "Mid-Repair Car Seat — In Progress", description: "A car seat mid-way through our reupholstery process.", imageUrl: "/images/carseat-during-repair.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 1, serviceName: "Car Seat Reupholstery", tags: ["in progress", "car seats", "leather"] },
+  { id: 13, title: "Worn Seat — Ready for Recovery", description: "Another car seat brought in showing heavy wear.", imageUrl: "/images/carseat-worn-before2.jpg", beforeImageUrl: "/images/carseat-worn-before2.jpg", afterImageUrl: "/images/office-chair-black-leather.jpg", serviceId: 1, serviceName: "Car Seat Reupholstery", tags: ["before", "car seats", "repair"] },
+  { id: 14, title: "Cream Curved Sofa — New Build", description: "Bespoke curved sofa upholstered in premium cream velvet.", imageUrl: "/images/sofa-cream-curved.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 2, serviceName: "Couch Recovery", tags: ["custom", "cream", "velvet", "new build"] },
+  { id: 15, title: "Grey L-Shaped Sectional", description: "Modern L-shaped sectional recovered in soft grey fabric.", imageUrl: "/images/sectional-grey-modern.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 2, serviceName: "Couch Recovery", tags: ["sectional", "grey", "modern", "recovery"] },
+  { id: 16, title: "Navy Blue Tufted Corner Sofa", description: "Navy blue tufted corner sofa built in-house.", imageUrl: "/images/sofa-navy-tufted-l.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 2, serviceName: "Couch Recovery", tags: ["navy", "tufted", "corner sofa", "workshop"] },
+  { id: 17, title: "White & Gold Chesterfield L-Shape", description: "Stunning white chesterfield L-shaped sofa with gold accent.", imageUrl: "/images/sofa-white-gold-chesterfield.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 2, serviceName: "Couch Recovery", tags: ["chesterfield", "white", "gold", "L-shape"] },
+  { id: 18, title: "Mustard Velvet Chesterfield", description: "Classic Chesterfield 2-seater in rich mustard velvet.", imageUrl: "/images/sofa-mustard-chesterfield.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 2, serviceName: "Couch Recovery", tags: ["chesterfield", "mustard", "velvet", "studs"] },
+  { id: 19, title: "Teal Chesterfield Loveseat", description: "Compact teal velvet chesterfield loveseat.", imageUrl: "/images/loveseat-teal-chesterfield.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 2, serviceName: "Couch Recovery", tags: ["loveseat", "teal", "chesterfield", "compact"] },
+  { id: 20, title: "Blue Floral Sofa Recovery", description: "Two-seater sofa recovered in bold blue floral fabric.", imageUrl: "/images/sofa-blue-floral.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 2, serviceName: "Couch Recovery", tags: ["floral", "blue", "recovery", "mixed fabric"] },
+  { id: 21, title: "Black Leather Bar & Office Chair", description: "Black full-grain leather office/bar chair fully reupholstered.", imageUrl: "/images/office-chair-black-leather.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 3, serviceName: "Office Chair Repair", tags: ["office chair", "black", "leather", "chrome"] },
+  { id: 22, title: "Grey Velvet Accent Chair", description: "Elegant grey velvet accent chair.", imageUrl: "/images/armchair-grey-velvet.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 3, serviceName: "Office Chair Repair", tags: ["accent chair", "grey", "velvet", "office"] },
+  { id: 23, title: "Purple Velvet Tufted Headboard", description: "King-size headboard in rich purple velvet with deep diamond button tufting.", imageUrl: "/images/headboard-purple-tufted.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 4, serviceName: "New Couches & Headboards", tags: ["headboard", "purple", "velvet", "tufted", "king"] },
+  { id: 24, title: "Olive Green Bed & Headboard Set", description: "Full bed and oversized fan-panel headboard in olive green velvet.", imageUrl: "/images/bed-olive-green.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 4, serviceName: "New Couches & Headboards", tags: ["headboard", "olive green", "bed set", "fan panel"] },
+  { id: 25, title: "Black Chevron Divan Headboard", description: "Single bed with bold black chevron headboard.", imageUrl: "/images/headboard-black-chevron.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 4, serviceName: "New Couches & Headboards", tags: ["headboard", "black", "chevron", "geometric", "divan"] },
+  { id: 26, title: "Blue Boucle Tufted Headboard", description: "Oversized queen headboard in blue-grey boucle.", imageUrl: "/images/headboard-blue-workshop.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 4, serviceName: "New Couches & Headboards", tags: ["headboard", "boucle", "blue", "workshop", "tufted"] },
+  { id: 27, title: "Teal Geometric Panel Headboard", description: "Tall teal velvet headboard with star-panel geometric quilting.", imageUrl: "/images/headboard-teal-geometric.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 4, serviceName: "New Couches & Headboards", tags: ["headboard", "teal", "geometric", "panels", "queen"] },
+  { id: 28, title: "Blue Bouclé Armchair — New Design", description: "Sculptural modern armchair upholstered in rich blue bouclé fabric.", imageUrl: "/images/armchair-blue-boucle.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 4, serviceName: "New Couches & Headboards", tags: ["armchair", "boucle", "blue", "custom", "modern"] },
+  { id: 29, title: "Navy Tufted Ottoman", description: "Round navy velvet ottoman with hand-applied stud trim.", imageUrl: "/images/ottoman-navy-tufted.jpg", beforeImageUrl: null, afterImageUrl: null, serviceId: 4, serviceName: "New Couches & Headboards", tags: ["ottoman", "navy", "velvet", "studs", "round"] },
+];
+
+export const staticReviews = {
+  reviews: [
+    { id: 1, customerName: "Thabo Nkosi", rating: 5, comment: "Absolutely incredible work! My BMW seats look better than when the car was new. The leather quality is top notch and the stitching is perfect. Will definitely be back for my other car.", serviceId: 1, serviceName: "Car Seat Reupholstery", createdAt: "2026-05-13T12:44:14.734Z" },
+    { id: 2, customerName: "Nomvula Dlamini", rating: 5, comment: "NJ Upholstery completely transformed my old Chesterfield sofa. I was about to throw it away but now it looks like it came from a boutique furniture store. Professional service and fair pricing.", serviceId: 2, serviceName: "Couch Recovery", createdAt: "2026-05-09T12:44:14.734Z" },
+    { id: 3, customerName: "Sipho Mokoena", rating: 4, comment: "Great work on my office chairs. The team refurbished 15 chairs for our boardroom and they all look brand new. Delivered on time and within budget.", serviceId: 3, serviceName: "Office Chair Repair", createdAt: "2026-05-02T12:44:14.734Z" },
+    { id: 4, customerName: "Ayesha Patel", rating: 5, comment: "I ordered a custom headboard and it exceeded every expectation. The velvet is luxurious and the diamond tufting is beautifully even. They even delivered and fitted it for me. 10/10.", serviceId: 4, serviceName: "New Couches & Headboards", createdAt: "2026-04-25T12:44:14.734Z" },
+    { id: 5, customerName: "Jacques van der Berg", rating: 5, comment: "My Toyota Land Cruiser seats are now the envy of all my friends. Premium leather, beautiful contrast stitching, and the fit is perfect. Worth every rand.", serviceId: 1, serviceName: "Car Seat Reupholstery", createdAt: "2026-04-16T12:44:14.734Z" },
+    { id: 6, customerName: "Zanele Mahlangu", rating: 4, comment: "Our family couch was falling apart but NJ Upholstery saved it. Fresh foam, beautiful new fabric, and they even reinforced the frame. Feels like a brand new couch.", serviceId: 2, serviceName: "Couch Recovery", createdAt: "2026-04-11T12:44:14.734Z" },
+    { id: 7, customerName: "Brendan Olivier", rating: 5, comment: "Fast, professional, and the quality is outstanding. I brought in my vintage racing car seats and they were restored perfectly with the original colour matched exactly.", serviceId: 1, serviceName: "Car Seat Reupholstery", createdAt: "2026-03-16T12:44:14.734Z" },
+  ],
+  averageRating: 4.6,
+  totalCount: 7,
+};
+
+export const staticStats = {
+  projectsCompleted: 139,
+  yearsExperience: 12,
+  happyClients: 125,
+  averageRating: 4.6,
+};
