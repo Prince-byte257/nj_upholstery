@@ -10,7 +10,7 @@ export function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const { data: searchResults } = useSearch({ q: searchQuery }, { query: { enabled: searchQuery.length > 2 } });
+  const { data: searchResults } = useSearch({ q: searchQuery }, { query: { enabled: searchQuery.length > 2 } } as any);
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -25,7 +25,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <img
-            src="/images/logo.jpg"
+            src={`${import.meta.env.BASE_URL}images/logo.jpg`}
             alt="NJ Upholstery Services"
             className="h-14 w-auto object-contain"
           />
