@@ -2,13 +2,19 @@ import { Layout } from "@/components/layout";
 import { useGetStats, useListServices, useListGallery, useListReviews } from "@workspace/api-client-react";
 import { Link } from "wouter";
 import { ArrowRight, Star, ChevronRight, Quote as QuoteIcon } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { staticServices, staticGallery, staticReviews, staticStats } from "@/lib/static-data";
+import { imgUrl } from "@/lib/img-url";
 
 export default function Home() {
-  const { data: stats, isLoading: statsLoading } = useGetStats();
-  const { data: services, isLoading: servicesLoading } = useListServices();
-  const { data: gallery, isLoading: galleryLoading } = useListGallery({ limit: 4 } as any);
-  const { data: reviewsData, isLoading: reviewsLoading } = useListReviews();
+  const { data: statsData } = useGetStats();
+  const { data: servicesData } = useListServices();
+  const { data: galleryData } = useListGallery({ limit: 4 } as any);
+  const { data: reviewsDataApi } = useListReviews();
+
+  const stats = statsData ?? staticStats;
+  const services = servicesData ?? staticServices;
+  const gallery = galleryData ?? staticGallery.slice(0, 4);
+  const reviewsData = reviewsDataApi ?? staticReviews;
 
   return (
     <Layout>
@@ -45,31 +51,25 @@ export default function Home() {
       <section className="py-20 bg-background border-b border-border">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-            {statsLoading ? (
-              Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-24 w-full" />)
-            ) : stats && (
-              <>
-                <div className="text-center">
-                  <div className="font-serif text-5xl md:text-6xl font-bold text-primary mb-2">{stats.projectsCompleted}+</div>
-                  <div className="text-sm uppercase tracking-widest text-muted-foreground font-semibold">Projects Completed</div>
-                </div>
-                <div className="text-center">
-                  <div className="font-serif text-5xl md:text-6xl font-bold text-primary mb-2">{stats.yearsExperience}</div>
-                  <div className="text-sm uppercase tracking-widest text-muted-foreground font-semibold">Years Experience</div>
-                </div>
-                <div className="text-center">
-                  <div className="font-serif text-5xl md:text-6xl font-bold text-primary mb-2">{stats.happyClients}</div>
-                  <div className="text-sm uppercase tracking-widest text-muted-foreground font-semibold">Happy Clients</div>
-                </div>
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-1 mb-2">
-                    <span className="font-serif text-5xl md:text-6xl font-bold text-primary">{stats.averageRating}</span>
-                    <Star className="h-8 w-8 text-accent fill-accent" />
-                  </div>
-                  <div className="text-sm uppercase tracking-widest text-muted-foreground font-semibold">Average Rating</div>
-                </div>
-              </>
-            )}
+            <div className="text-center">
+              <div className="font-serif text-5xl md:text-6xl font-bold text-primary mb-2">{stats.projectsCompleted}+</div>
+              <div className="text-sm uppercase tracking-widest text-muted-foreground font-semibold">Projects Completed</div>
+            </div>
+            <div className="text-center">
+              <div className="font-serif text-5xl md:text-6xl font-bold text-primary mb-2">{stats.yearsExperience}</div>
+              <div className="text-sm uppercase tracking-widest text-muted-foreground font-semibold">Years Experience</div>
+            </div>
+            <div className="text-center">
+              <div className="font-serif text-5xl md:text-6xl font-bold text-primary mb-2">{stats.happyClients}</div>
+              <div className="text-sm uppercase tracking-widest text-muted-foreground font-semibold">Happy Clients</div>
+            </div>
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-1 mb-2">
+                <span className="font-serif text-5xl md:text-6xl font-bold text-primary">{stats.averageRating}</span>
+                <Star className="h-8 w-8 text-accent fill-accent" />
+              </div>
+              <div className="text-sm uppercase tracking-widest text-muted-foreground font-semibold">Average Rating</div>
+            </div>
           </div>
         </div>
       </section>
@@ -88,13 +88,11 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {servicesLoading ? (
-              Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-96 w-full" />)
-            ) : services?.slice(0, 4).map((service) => (
+            {services.slice(0, 4).map((service) => (
               <Link key={service.id} href={`/services#${service.id}`} className="group block relative overflow-hidden bg-background">
                 <div className="aspect-[4/5] overflow-hidden">
                   <img 
-                    src={service.imageUrl || "https://images.unsplash.com/photo-1618220179428-22790b46a0eb?q=80&w=800"} 
+                    src={imgUrl(service.imageUrl) || "https://images.unsplash.com/photo-1618220179428-22790b46a0eb?q=80&w=800"} 
                     alt={service.name} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -126,12 +124,10 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-             {galleryLoading ? (
-              Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="aspect-square w-full" />)
-            ) : gallery?.map((item) => (
+            {gallery.map((item) => (
               <Link key={item.id} href="/gallery" className="group block aspect-square overflow-hidden relative">
                 <img 
-                  src={item.imageUrl} 
+                  src={imgUrl(item.imageUrl)} 
                   alt={item.title} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
@@ -164,9 +160,7 @@ export default function Home() {
             </div>
             
             <div className="space-y-6">
-              {reviewsLoading ? (
-                Array.from({ length: 2 }).map((_, i) => <Skeleton key={i} className="h-48 w-full bg-white/10" />)
-              ) : reviewsData?.reviews.slice(0, 2).map((review) => (
+              {reviewsData.reviews.slice(0, 2).map((review) => (
                 <div key={review.id} className="bg-black/20 p-8 backdrop-blur-sm">
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: 5 }).map((_, i) => (
