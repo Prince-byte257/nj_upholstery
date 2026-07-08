@@ -28,7 +28,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-bold text-lg mb-1">Our Workshop</h3>
-                    <p className="text-muted-foreground">123 Artisan Way<br />Woodstock, Cape Town<br />8001, South Africa</p>
+                    <p className="text-muted-foreground">155 Charlotte Maxeke Street<br />Pretoria West</p>
                   </div>
                 </div>
                 
@@ -49,7 +49,7 @@ export default function Contact() {
                   <div>
                     <h3 className="font-bold text-lg mb-1">Phone</h3>
                     <p className="text-muted-foreground">
-                      <a href="tel:+27123456789" className="hover:text-primary transition-colors">+27 12 345 6789</a>
+                      <a href="tel:+27740250688" className="hover:text-primary transition-colors">+27 74 025 0688</a>
                     </p>
                   </div>
                 </div>
@@ -61,7 +61,7 @@ export default function Contact() {
                   <div>
                     <h3 className="font-bold text-lg mb-1">WhatsApp</h3>
                     <p className="text-muted-foreground">
-                      <a href="https://wa.me/27123456789" target="_blank" rel="noopener noreferrer" className="hover:text-[#25D366] transition-colors">+27 12 345 6789</a>
+                      <a href="https://wa.me/27740250688" target="_blank" rel="noopener noreferrer" className="hover:text-[#25D366] transition-colors">+27 74 025 0688</a>
                     </p>
                   </div>
                 </div>
