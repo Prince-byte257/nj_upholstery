@@ -26,10 +26,10 @@ export function Footer() {
         <div>
           <h4 className="font-serif text-lg font-semibold mb-6">Contact</h4>
           <ul className="space-y-4 text-primary-foreground/80">
-            <li>123 Artisan Way, Cape Town, South Africa</li>
+            <li>155 Charlotte Maxeke Street, Pretoria West</li>
             <li>Mon - Fri: 8am - 5pm</li>
             <li>Sat: 9am - 1pm</li>
-            <li><a href="tel:+27123456789" className="hover:text-white transition-colors">+27 12 345 6789</a></li>
+            <li><a href="tel:+27740250688" className="hover:text-white transition-colors">+27 74 025 0688</a></li>
           </ul>
         </div>
       </div>
