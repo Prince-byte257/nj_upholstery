@@ -25,7 +25,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <img
-            src={`${import.meta.env.BASE_URL}images/logo.jpg`}
+            src={`${import.meta.env.BASE_URL}images/logo.png`}
             alt="NJ Upholstery Services"
             className="h-14 w-auto object-contain"
           />
