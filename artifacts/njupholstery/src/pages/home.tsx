@@ -40,7 +40,7 @@ export default function Home() {
             <Link href="/quote" className="w-full sm:w-auto inline-flex h-14 items-center justify-center bg-primary px-8 text-lg font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-xl">
               Request a Quote
             </Link>
-            <a href="https://wa.me/27123456789" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex h-14 items-center justify-center border border-white/30 bg-white/5 backdrop-blur-sm px-8 text-lg font-medium text-white hover:bg-white/10 transition-colors">
+            <a href="https://wa.me/27740250688" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex h-14 items-center justify-center border border-white/30 bg-white/5 backdrop-blur-sm px-8 text-lg font-medium text-white hover:bg-white/10 transition-colors">
               WhatsApp Us
             </a>
           </div>
